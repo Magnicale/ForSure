@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><c:out value="${pageTitle}" default="Капсула времени" /></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
+    <script defer src="${pageContext.request.contextPath}/assets/js/app.js"></script>
+</head>
+<body>
+<header class="site-header">
+    <a class="brand" href="${pageContext.request.contextPath}/capsules"><span class="brand-mark">◷</span> Капсула</a>
+    <nav class="site-nav" aria-label="Основная навигация">
+        <c:if test="${not empty sessionScope.userId}">
+            <a href="${pageContext.request.contextPath}/capsules">Лента</a>
+            <a href="${pageContext.request.contextPath}/capsules/new">Новая капсула</a>
+            <c:if test="${sessionScope.role == 'ADMIN'}"><a href="${pageContext.request.contextPath}/admin/categories">Админка</a></c:if>
+            <form method="post" action="${pageContext.request.contextPath}/logout" class="inline-form">
+                <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                <button class="nav-button" type="submit">Выйти</button>
+            </form>
+        </c:if>
+        <c:if test="${empty sessionScope.userId}">
+            <a href="${pageContext.request.contextPath}/login">Войти</a>
+            <a href="${pageContext.request.contextPath}/register">Создать аккаунт</a>
+        </c:if>
+    </nav>
+</header>
+<main class="page-shell">
